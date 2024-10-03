@@ -2,72 +2,68 @@
 {
     public class StudentRepository : IStudentCRUDInterface
     {
-        static List<StudentModel> myStudents = new List<StudentModel>();
+        // Use IStudentInterface for the list (Max Lasitsa)
+        static List<IStudentInterface> myStudents = new List<IStudentInterface>();
 
         public StudentRepository()
         {
             if (myStudents.Count == 0)
             {
-                // if list is empty, initialize it
+                // Initialize the list with StudentModel instances (constructors remain unchanged) (Max Lasitsa)
                 myStudents.Add(new StudentModel(1001, "Tom", 16));
                 myStudents.Add(new StudentModel(1002, "Jen", 8));
                 myStudents.Add(new StudentModel(1003, "Sabah", 16));
             }
-
         }
 
-        public List<StudentModel> getAllStudent()
+        // Return the list of IStudentInterface instead of StudentModel (Max Lasitsa)
+        public List<IStudentInterface> getAllStudent()
         {
             return myStudents;
         }
 
-
-        public StudentModel getStudentById(int id)
+        // Return IStudentInterface instead of StudentModel (Max Lasitsa)
+        public IStudentInterface getStudentById(int id)
         {
-            //Console.WriteLine("Getting student with id = " + id);
-            //return myStudents.Find(s => s.Id == id);
-            foreach (StudentModel student in myStudents)
+            foreach (IStudentInterface student in myStudents)
             {
                 if (student.Id == id)
                 {
-                    return (student);
+                    return student;
                 }
             }
-            // if you can't find the correct student return the first one
-            return (nullStudent());
+            return nullStudent();
         }
 
-
-
-        public StudentModel getOneStudent(int index)
+        // Return IStudentInterface instead of StudentModel (Max Lasitsa)
+        public IStudentInterface getOneStudent(int index)
         {
-            return (myStudents[index]);
-        }
-        private StudentModel nullStudent()
-        {
-            // create a null student
-            StudentModel nullStudent = new StudentModel(-1, "Null Student", -999);
-            return nullStudent;
+            return myStudents[index];
         }
 
-        public void AddStudent(StudentModel newStudent)
+        // Create a null student using StudentModel constructor (Max Lasitsa)
+        private IStudentInterface nullStudent()
+        {
+            return new StudentModel(-1, "Null Student", -999);
+        }
+
+        // Add an IStudentInterface to the list (Max Lasitsa)
+        public void AddStudent(IStudentInterface newStudent)
         {
             myStudents.Add(newStudent);
         }
 
+        // Delete a student by ID (Max Lasitsa)
         public void DeleteStudent(int studentId)
         {
-            // search the list for the student that matches the student ID
-            // DEBT --- Handle case when student id not found and index is -1
-            int index = myStudents.FindIndex(student => (student.Id == studentId));
+            int index = myStudents.FindIndex(student => student.Id == studentId);
             myStudents.RemoveAt(index);
         }
 
-        public void UpdateStudent(int studentId, StudentModel updatedStudent)
+        // Update a student by ID (Max Lasitsa)
+        public void UpdateStudent(int studentId, IStudentInterface updatedStudent)
         {
-            // search the list for the student that matches the student ID
-            // DEBT --- Handle case when student id not found and index is -1
-            int index = myStudents.FindIndex(student => (student.Id == studentId));
+            int index = myStudents.FindIndex(student => student.Id == studentId);
             myStudents[index] = updatedStudent;
         }
     }

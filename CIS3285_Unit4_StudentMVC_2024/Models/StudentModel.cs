@@ -2,7 +2,7 @@
 
 namespace CIS3285_Unit4_StudentMVC_2024.Models
 {
-    public class StudentModel
+    public class StudentModel : IStudentInterface
     {
         [Key]
         public int Id { get; set; }
@@ -22,5 +22,4 @@ namespace CIS3285_Unit4_StudentMVC_2024.Models
             Credits = -1;
         }
     }
-
 }

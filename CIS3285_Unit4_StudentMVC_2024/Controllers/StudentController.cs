@@ -29,7 +29,7 @@ namespace CIS3285_Unit4_StudentMVC_2024.Controllers
         // GET: StudentController/Create
         public ActionResult Create()
         {
-            // This display the initial view when creating a student
+            // This displays the initial view when creating a student
             return View();
         }
 
@@ -42,7 +42,7 @@ namespace CIS3285_Unit4_StudentMVC_2024.Controllers
             // The collection is a map that contains the data fields
             try
             {
-                StudentModel newStudent = new StudentModel();
+                IStudentInterface newStudent = new StudentModel();
                 // Retrieve form data using form collection
                 newStudent.Id = Int32.Parse(collection["Id"]);
                 newStudent.Name = collection["Name"];
@@ -59,7 +59,7 @@ namespace CIS3285_Unit4_StudentMVC_2024.Controllers
         // GET: StudentController/Edit/5
         public ActionResult Edit(int id)
         {
-            // This displays the edit view when it is first openned
+            // This displays the edit view when it is first opened
             // The student that matches the id parameter must be passed to the view
             return View("Edit", studentRepo.getStudentById(id));
         }
@@ -73,7 +73,7 @@ namespace CIS3285_Unit4_StudentMVC_2024.Controllers
             // The collection is a map that contains the data fields from the view
             try
             {
-                StudentModel updatedStudent = new StudentModel();
+                IStudentInterface updatedStudent = new StudentModel();
                 // Retrieve form data using form collection
                 updatedStudent.Id = id;
                 updatedStudent.Name = collection["Name"];
@@ -95,7 +95,6 @@ namespace CIS3285_Unit4_StudentMVC_2024.Controllers
             {
                 studentRepo.DeleteStudent(id);
                 return RedirectToAction(nameof(Index));
-                //return View("Delete", studentRepo.getStudentById(id));
             }
             catch
             {
@@ -110,7 +109,6 @@ namespace CIS3285_Unit4_StudentMVC_2024.Controllers
         {
             try
             {
-                //studentRepo.DeleteStudent(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
