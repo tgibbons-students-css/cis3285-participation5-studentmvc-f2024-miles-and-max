@@ -44,7 +44,7 @@
         // Create a null student using StudentModel constructor (Max Lasitsa)
         private IStudentInterface nullStudent()
         {
-            return new StudentModel(-1, "Null Student", -999);
+            return new NullStudent();
         }
 
         // Add an IStudentInterface to the list (Max Lasitsa)
